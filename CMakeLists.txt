@@ -3,7 +3,7 @@ project(genRefac2)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(genRefac2 src/main.cpp src/Customer.cpp src/Customer.h src/Movie.cpp src/Movie.h src/Rental.h test/test.cpp src/PriceCode.h src/RegularPriceCode.h src/NewReleasePriceCode.h src/ChildrenPriceCode.h)
+add_executable(genRefac2 src/main.cpp src/Customer.cpp src/Customer.h src/Movie.h src/Rental.h test/test.cpp src/PriceCode.h src/RegularPriceCode.h src/NewReleasePriceCode.h src/ChildrenPriceCode.h)
 
 include(CTest)
 
@@ -35,6 +35,6 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 # Trivial example using gtest and gmock
-add_executable(Alltests test/test.cpp src/Customer.cpp src/Movie.cpp)
+add_executable(Alltests test/test.cpp src/Customer.cpp)
 target_link_libraries(Alltests gtest gmock_main)
 add_test(NAME example_test COMMAND Alltests)
