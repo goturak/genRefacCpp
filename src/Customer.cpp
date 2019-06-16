@@ -17,17 +17,15 @@ string Customer::statement()
     ostringstream result;
     result << "Rental Record for " << getName() << "\n";
     for ( ; iter != iter_end; ++iter ) {
-        double thisAmount = 0;
+
         Rental each = *iter;
 
         // determine amounts for each line
-        thisAmount += each.cost();
+        double thisAmount = each.cost();
 
         // add frequent renter points
-        frequentRenterPoints++;
+        frequentRenterPoints+= each.freqRentPoint();
         // add bonus for a two day new release rental
-        if ( ( each.getMovie().getPriceCode() == Movie::NEW_RELEASE )
-             && each.getDaysRented() > 1 ) frequentRenterPoints++;
 
         // show figures for this rental
         result << "\t" << each.getMovie().getTitle() << "\t"

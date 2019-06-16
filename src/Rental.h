@@ -9,6 +9,16 @@ public:
     double cost() const;
     int getDaysRented() const;
     const Movie& getMovie() const;
+    int freqRentPoint() const {
+        if ( ( getMovie().getPriceCode() == Movie::NEW_RELEASE )
+             &&getDaysRented() > 1 ){
+
+            return 2;
+        }else{
+            return 1;
+        }
+
+    }
 
 private:
     Movie _movie;
