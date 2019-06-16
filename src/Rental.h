@@ -10,7 +10,7 @@ public:
     int getDaysRented() const;
     const Movie& getMovie() const;
     int freqRentPoint() const {
-        if ( ( getMovie().getPriceCode() == Movie::NEW_RELEASE )
+        if ( ( getMovie().getPriceCode()->hasBonus())
              &&getDaysRented() > 1 ){
 
             return 2;
@@ -33,21 +33,13 @@ Rental( const Movie& movie, int daysRented )
 
 inline double Rental::cost() const {
     double cost=0;
-    switch (getMovie().getPriceCode() ) {
-        case Movie::REGULAR:
-            cost += 2;
-            if ( getDaysRented() > 2 )
-                cost += ( getDaysRented() - 2 ) * 1.5 ;
-            break;
-        case Movie::NEW_RELEASE:
-            cost += getDaysRented() * 3;
-            break;
-        case Movie::CHILDRENS:
-            cost+= 1.5;
-            if ( getDaysRented() > 3 )
-                cost += ( getDaysRented() - 3 ) * 1.5;
-            break;
-    }
+
+    cost += getMovie().getPriceCode()->getBaseCost();
+    if ( getDaysRented() > getMovie().getPriceCode()->getMaxRentLength() )
+        cost += ( getDaysRented() - getMovie().getPriceCode()->getMaxRentLength() ) *
+                getMovie().getPriceCode()->getFeePerExtraDay() ;
+
+
     return cost;
 }
 inline int Rental::
